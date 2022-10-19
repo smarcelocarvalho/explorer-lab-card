@@ -1,7 +1,6 @@
 /* CC */
 .cc {
   background: no-repeat center/cover;
-  background-image: url("/cc-bg.svg");
   width: 36rem;
   height: 23rem;
   padding: 2rem;
@@ -60,7 +59,11 @@
 
 .cc,
 .cc-logo,
-.cc-number {
+.cc-number,
+.cc-holder,
+.cc-expiration,
+.cc-security,
+.cc-chip {
   position: relative;
 }
 

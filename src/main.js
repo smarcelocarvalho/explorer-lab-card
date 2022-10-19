@@ -2,38 +2,35 @@ import "./css/index.css"
 import IMask from "imask"
 
 // Mudança de estilo com setAttribute
-const ccBgColor01 = document.querySelector(".cc-bg svg > g g:nth-child(1) path")
-const ccBgColor02 = document.querySelector(".cc-bg svg > g g:nth-child(2) path")
+const ccBgColor = document.querySelector(".cc-bg svg rect")
 const ccLogo = document.querySelector(".cc-logo span:nth-child(2) img")
 
 function setCardType(type) {
   const colors = {
-    visa: ["#ffc600", "#0846bb"],
-    mastercard: ["#ec001b", "#f8a01b"],
-    nubank: ["#820ad1", "#f5f5f5"],
-    alelo: ["#007858", "#C7D540"],
-    american: ["#1f6cb4", "#fffef8"],
-    maestro: ["#CC2131", "#3A9BD9"],
-    bb: ["#003DA4", "#FFEF38"],
-    hipercard: ["#9a1914", "#fcfdf7"],
-    default: ["black", "gray"],
+    visa: ["#004e98"],
+    mastercard: ["#dc2f02"],
+    americanexpress: ["#111d13"],
+    maestro: ["#10002b"],
+    discover: ["#4d1929"],
+    diners: ["#0a2472"],
+    jcb: ["#c1121f"],
+    default: ["#212529"],
   }
-  ccBgColor01.setAttribute("fill", colors[type][0])
-  ccBgColor02.setAttribute("fill", colors[type][1])
+  ccBgColor.setAttribute("fill", colors[type])
   ccLogo.setAttribute("src", `/cc-${type}.svg`)
 }
 globalThis.setCardType = setCardType
 
 // CVC
-var inputSecurityCode = document.querySelector("#security-code")
-var securityCodePattern = {
+const inputSecurityCode = document.querySelector("#security-code")
+const securityCodePattern = {
   mask: "0000",
 }
-var securityMasked = IMask(inputSecurityCode, securityCodePattern)
+const securityMasked = IMask(inputSecurityCode, securityCodePattern)
 
 // DATA EXP
-var inputDateExp = document.querySelector("#expiration-date")
-var dateExpPattern = {
+const inputDateExp = document.querySelector("#expiration-date")
+const dateExpPattern = {
   mask: "MM{/}YY",
   blocks: {
     MM: {
@@ -48,11 +45,11 @@ var dateExpPattern = {
     }
   }
 }
-var dateExpMasked = IMask(inputDateExp, dateExpPattern)
+const dateExpMasked = IMask(inputDateExp, dateExpPattern)
 
 // NUMBER CARD
-var inputNumberCard = document.querySelector("#card-number")
-var cardNumberPattern = {
+const inputNumberCard = document.querySelector("#card-number")
+const cardNumberPattern = {
   mask: [
     {
       mask: "0000 0000 0000 0000",
@@ -67,7 +64,7 @@ var cardNumberPattern = {
     {
       mask: "0000 000000 00000",
       regex: /^3[47]\d{0,13}/,
-      cardtype: "american express",
+      cardtype: "americanexpress",
     },
     {
       mask: "0000 0000 0000 0000",
@@ -90,11 +87,6 @@ var cardNumberPattern = {
       cardtype: "jcb",
     },
     {
-        mask: '0000 0000 0000 0000',
-        regex: /^62\d{0,14}/,
-        cardtype: 'unionpay'
-    },
-    {
       mask: "0000 0000 0000 0000",
       cardtype: "default",
     },
@@ -105,8 +97,8 @@ var cardNumberPattern = {
     const foundMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
     })
-    console.log(foundMask.cardtype)
+    setCardType(foundMask.cardtype)
     return foundMask
   },
 }
-var cardNumberMasked = IMask(inputNumberCard, cardNumberPattern)
+const cardNumberMasked = IMask(inputNumberCard, cardNumberPattern)
