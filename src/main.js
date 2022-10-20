@@ -97,54 +97,53 @@ const cardNumberPattern = {
     const foundMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
     })
-    setCardType(foundMask.cardtype)
     return foundMask
   },
 }
 const cardNumberMasked = IMask(inputNumberCard, cardNumberPattern)
 
-// EVENT
-inputNumberCard.addEventListener("keyup", setNumber)
-function setNumber(e) {
-  const numberCard = document.querySelector(".cc-number")
-  if (inputNumberCard.value==0){
-    numberCard.innerHTML = "0000 0000 0000 0000"
-  } else {
-    numberCard.innerHTML = inputNumberCard.value
-  }
-}
+const addButton = document.querySelector("#add-card")
+addButton.addEventListener("click", () => {
+  console.log("CARTÃO ADICIONADO !!")
+})
 
+// A página não atualiza no submit
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault()
+})
+
+// Eventlistner para inserir nome
 const inputNameCard = document.querySelector("#card-holder")
-inputNameCard.addEventListener("keyup", setName)
-function setName(e) {
+inputNameCard.addEventListener("input", () => {
   const nameCard = document.querySelector(".cc-holder .value")
-  if (inputNameCard.value==0){
-    nameCard.innerHTML = "Seu nome"
-  } else {
-    nameCard.innerHTML = inputNameCard.value
-  }
-  
-}
- 
-const inputExpDate = document.querySelector("#expiration-date")
-inputExpDate.addEventListener("keyup", setExpDate)
-function setExpDate(e) {
-  const expDateCard = document.querySelector(".cc-expiration .value")
-  if (inputDateExp.value == 0) {
-    expDateCard.innerHTML = "00/00"
-  } else {
-    expDateCard.innerHTML = inputExpDate.value
-  }
+  // IF ternário
+  nameCard.innerText = inputNameCard.value.length === 0 ? "SEU NOME" : inputNameCard.value
+})
+
+// Event Mask
+securityMasked.on("accept", () => {
+  updateSecurityCode(securityMasked.value);
+})
+function updateSecurityCode(code) {
+  const ccSecurity = document.querySelector(".cc-security .value")
+  ccSecurity.innerText = code.length === 0 ? "000" : code
 }
 
-const inputCodSeg = document.querySelector("#security-code")
-inputCodSeg.addEventListener("keyup", setCodSeg)
-function setCodSeg(e) {
-  const codSeg = document.querySelector(".cc-security .value")
-  if (inputCodSeg.value == 0) {
-    codSeg.innerHTML = "000"
-  } else {
-    codSeg.innerHTML = inputCodSeg.value
-  }
+cardNumberMasked.on("accept", () => {
+  // Inserindo bandeiras
+  const cardType = cardNumberMasked.masked.currentMask.cardtype;
+  setCardType(cardType);
+  updateNumberCard(cardNumberMasked.value);
+})
+function updateNumberCard(code) {
+  const ccNumber = document.querySelector(".cc-number")
+  ccNumber.innerText = code.length === 0 ? "0000 0000 0000 0000" : code
 }
 
+dateExpMasked.on("accept", () => {
+  updateExpDateCard(dateExpMasked.value);
+})
+function updateExpDateCard(code) {
+  const ccExpiration = document.querySelector(".cc-expiration .value")
+  ccExpiration.innerText = code.length === 0 ? "12/22" : code
+}
