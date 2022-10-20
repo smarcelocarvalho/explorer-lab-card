@@ -48,7 +48,7 @@ form button {
   align-items: center;
   padding: 1.6rem 0;
 
-  background: #529aa3;
+  background: #151f74;
   border-radius: 0.6rem;
 
   cursor: pointer;
@@ -58,7 +58,7 @@ form button {
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.7rem;
-  color: #121212;
+  color: #e1e1e6;
 
   transition: filter 0.3s;
 }

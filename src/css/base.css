@@ -20,7 +20,7 @@
 body {
   font-size: 1.6rem;
   background: rgb(77,0,129);
-  background: linear-gradient(90deg, rgba(77,0,129,1) 0%, rgba(82,154,163,1) 50%, rgba(0,0,0,1) 100%);
+  background: linear-gradient(90deg, rgba(77,0,129,1) 0%, rgba(21,31,116,1) 50%, rgba(0,0,0,1) 100%);
 
   display: flex;
   place-items: center;
